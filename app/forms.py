@@ -1,12 +1,21 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, DateField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, DateField, TextAreaField,EmailField
 from wtforms.validators import DataRequired, Email, Length
 from wtforms.widgets import PasswordInput
 
 class LoginForm(FlaskForm):
-    email = StringField('', validators=[DataRequired()], render_kw={"placeholder": "Email"})
-    password = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": "Mot de passe"})
-    submit = SubmitField('Connexion')
+    email = StringField('email',validators=[DataRequired()])
+    password =PasswordField('Password',validators=[DataRequired()])
+    remember_me = BooleanField('Remember_me')
+    submit = SubmitField('CONNECTER')
+    #email = EmailField('Email')
+    
+class UserForm(FlaskForm):
+    nom = StringField('nom',validators=[DataRequired(),Length(min=2,max=20)])
+    prenom = StringField('prenom',validators=[DataRequired(),Length(min=2,max=20)])
+    password =PasswordField('Password',validators=[DataRequired()],widget=PasswordInput(hide_value=False))
+    email = StringField('Email',validators=[DataRequired()])
+    submit = SubmitField('INSCRIPTION')
 
 class SignUpForm(FlaskForm):
     nom = StringField('', validators=[DataRequired()], render_kw={"placeholder": "Nom"})

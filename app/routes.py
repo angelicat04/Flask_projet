@@ -1,14 +1,15 @@
 from app import app, db, bcrypt, login_manager
 from flask import render_template, flash, redirect, url_for, request, jsonify
-from app.forms import LoginForm, SignUpForm, ActuForm, ReviewForm, AddAdminForm, AdminForm, SchoolForm, DomainForm
+from app.forms import LoginForm, SignUpForm, ActuForm, ReviewForm, AddAdminForm, AdminForm, SchoolForm, DomainForm, UserForm
 from app.models import Utilisateur, Actualite, Administrateur, Avis, Ecoles, Domaines
 from flask_login import login_user, login_required, logout_user, current_user
 from datetime import datetime
+from flask_bcrypt import check_password_hash
 
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Utilisateur.query.get(int(user_id))
+    return Utilisateur.query.get(user_id)
 
     # admin = AdminForm.query.get(int(user_id))
     # return admin
@@ -18,7 +19,7 @@ def load_user(user_id):
 def accueil():
     actu = [
         {
-            'image': 'https://i.pinimg.com/564x/a4/19/5f/a4195fc1242b58e7576eb5a0b3354415.jpg',
+            'image': '../static/Images/actu-cover1.jpg',
             'title': 'Une nouvelle école formant en IA ouvre ses portes à Lomé.',
             'description': 'Lorem ipsum dolor sit, amet consectetur adipisicing elit.\
                         Nihil, amet! Illum quibusdam perspiciatis ex aperiam reiciendis\
@@ -27,7 +28,7 @@ def accueil():
             'date': '15 Janvier 2024',
         },
         {
-            'image': 'https://www.republiquetogolaise.com/media/k2/items/cache/f8e5b40ce3224c91a78a25a96337aa90_XL.jpg',
+            'image': '../static/Images/actu-cover2.jpg',
             'title': "De nouvelles universités au Togo!",
             'description': "La construction de nouvelles universités dans chaque région dont\
                   la première phase qui démarre en 2024 concerne\
@@ -36,7 +37,7 @@ def accueil():
             'date': '15 Janvier 2024',
         },
         {
-            'image': 'https://yop.l-frii.com/wp-content/uploads/2023/09/Prof.-Adama-Kpodar.jpg',
+            'image': '../static/Images/actu-cover3.jpg',
             'title': "Changement ministre de l'enseignement supérieur du togo",
             'description': "De nouveaux présidents viennent d'être nommés par décrets à la tête des deux universités publiques du Togo.\
                   Ainsi, le Prof Adama Kpodar est désormais le président de l'Université de Lomé, \
@@ -44,6 +45,15 @@ def accueil():
             'details': ' ',
             'date': '04 JSeptembre 2023',
         },
+        {
+            'image': '../static/Images/actu-cover1.jpg',
+            'title': 'Une nouvelle école formant en IA ouvre ses portes à Lomé.',
+            'description': 'Lorem ipsum dolor sit, amet consectetur adipisicing elit.\
+                        Nihil, amet! Illum quibusdam perspiciatis ex aperiam reiciendis\
+                        exercitationem provident similique officia.',
+            'details': ' ',
+            'date': '15 Janvier 2024',
+        }
 
     ]
 
@@ -72,84 +82,117 @@ def accueil():
 
 @app.route('/actu01/<int:id_actualite>')
 def actu01(id_actualite):
+
+    def enregistrer_commentaire():
+        commentaire_texte = request.form.get('commentaire')
+        nouveau_commentaire = Avis(commentaire=commentaire_texte)
+        db.session.add(nouveau_commentaire)
+        db.session.commit()
+        return jsonify({'message': 'Commentaire enregistré avec succès'})
     actu01 = Actualite.query.get_or_404(id_actualite)
     return render_template('actu01.html', actu01=actu01)
 
-@app.route('/enregistrer_commentaire', methods=['POST'])
-def enregistrer_commentaire():
-    commentaire_texte = request.form.get('commentaire')
-    nouveau_commentaire = Avis(commentaire=commentaire_texte)
-    db.session.add(nouveau_commentaire)
-    db.session.commit()
-    return jsonify({'message': 'Commentaire enregistré avec succès'})
+
+
+
+
 
 @app.route('/IAI')
 def IAI():
     return render_template('IAI.html')
 
-@app.route('/signup', methods=['POST', 'GET'])
+# @app.route("/user", methods=['POST', 'GET'])
+# def user():
+#     user_form = UserForm()
+#     if user_form.validate_on_submit():
+#         nom = user_form.nom.data
+#         prenom = user_form.prenom.data
+#         email = user_form.email.data
+#         password = user_form.password.data
+#         psw_hash = bcrypt.generate_password_hash(password).decode("utf8")
+
+#         user = Utilisateur(nom=nom, prenom=prenom, email=email, password=psw_hash)
+#         print(user)
+
+#         db.session.add(user)
+#         db.session.commit()
+
+#         flash("Utilisateur enregistré avec succès!")
+
+#     return render_template('user.html', form=user_form)
+
+@app.route('/signup',methods=['POST','GET'])
 def signup():
-    signup_form = SignUpForm()
-    if signup_form.validate_on_submit():
-        nom = signup_form.nom.data
-        prenom = signup_form.prenom.data
-        email = signup_form.email.data
-        password = signup_form.password.data
-        psw_hashed = bcrypt.generate_password_hash(password).decode('utf-8')
-        remember = signup_form.remember_me.data
-
-        #création d'un nouvel utilisateur
-        new_user = Utilisateur(nom=nom, prenom=prenom, email=email, password=psw_hashed, remember=remember)
-
-        try:
-            # Ajout du nouvel utilisateur à la base de données
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Inscription réussie !', 'success')
-            redirect(url_for('accueil'))
-        except Exception as e:
-            db.session.rollback()
-            flash('Une erreur s\'est produite lors de l\'inscription. Veuillez réessayer.')
-            print(f'Erreur lors de l\'inscription : {str(e)}')
-            redirect(url_for('signup'))
-
-        #Vérification du mail
-        existing_user = Utilisateur.query.filter_by(email=email).first()
-        if existing_user:
-            flash('Cet e-mail est déjà enregistré. Veuillez utiliser un autre e-mail.')
-            redirect(url_for('signup'))
-
-    return render_template('signup.html', form2=signup_form)
+    user_form = UserForm()
+    if user_form.validate_on_submit():
+        nom = user_form.nom.data
+        prenom = user_form.prenom.data
+        email = user_form.email.data
+        password = user_form.password.data
+        psw_hach = bcrypt.generate_password_hash(password).decode('utf8')
+    
+        user =Utilisateur(nom=nom,prenom=prenom,email=email,password=psw_hach)
+        print(user)
+        db.session.add(user)
+        db.session.commit()
+        
+        flash("Utilisateur enregistré avec succès! ")
+        #envoie de données dans la BD
+        #print("username recupéreé",login_form.username.data)
+        
+    return render_template('signup.html',form=user_form)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     login_form = LoginForm()
+
     if login_form.validate_on_submit():
         email = login_form.email.data
         password = login_form.password.data
 
         user = Utilisateur.query.filter_by(email=email).first()
+        if user is None:
+          flash("Ce mail n'a pas été enregistré")
+          print("ERREUR : MAIL INEXISTANT")
+          return render_template("login.html", login_form=login_form)
 
-        if not user:
-            flash("Ce mail n'a pas éte enrégistré")
-            return redirect(url_for('login'))
+        
+        pswd_unhashed = bcrypt.check_password_hash(user.password, password)
 
-        psw_unhashed = bcrypt.check_password_hash(user.password, password)
-        if not psw_unhashed:
-            flash("Mot de passe incorrect")
-            return redirect(url_for('login'))
+        if not user :
+            flash("Ce mail n'a pas été enregistré")
+            print("ERREUR : MAIL INEXISTANT")
+            return render_template("login.html", login_form=login_form)
+        
+       
+       
 
-        login_user(user)
-        flash("Vous êtes connecté")
-        return redirect(url_for('accueil'))
+        if pswd_unhashed:
+            login_user(user)
+            flash("Vous êtes connecté")
+            return redirect(url_for('accueil'))
+        else:
+           # Mot de passe incorrect
+           flash("Mot de passe incorrect")
+           print("ERREUR : MOT DE PASSE INCORRECT")
+           return redirect(url_for('login'))
+            
 
-    return render_template('login.html', form=login_form)
+      
+    
+    # Si le formulaire n'est pas valide ou les informations sont incorrectes,
+    # afficher la page de connexion avec le formulaire et les messages d'erreur.
+    return render_template('login.html', login_form=login_form)
 
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('accueil'))
+
+
+
+
+# @app.route('/logout')
+# @login_required
+# def logout():
+#     logout_user()
+#     return redirect(url_for('accueil'))
 
 
 @app.route('/create_admin', methods=['GET', 'POST'])

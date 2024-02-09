@@ -177,6 +177,12 @@ header.header{
 
 
 /*Détails Actualités*/  
+article h1{
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-top: 15vh;
+}
 article img {
     max-width: 800px;
     height: 500px;
@@ -264,19 +270,22 @@ article button:hover{
   
 .carousel {
     display: flex;
+    justify-content: center;
+    align-items: center;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 11 */
     
 }
+
   
 .carousel::-webkit-scrollbar {
     display: none; /* Safari and Chrome */
 }
   
 .carousel article{
-    flex: 0 0 auto;
+    flex: 0 0 400px;
     margin-right: 20px;
     scroll-snap-align: start;
 }
@@ -285,7 +294,7 @@ article button:hover{
 /*Footer*/
 .contact{
     background-color: var(--primary-color-dark);
-    height: 55vh;
+    height: 63vh;
     margin-top: 15vh;
 }
 

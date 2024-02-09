@@ -5,24 +5,24 @@
     <main class="main">
         <div class="container">
             <div class="form">
-                <form action="" method="post">
-                    {{ form2.hidden_tag() }}
+                <form action="" method="POST">
+                    {{ form.hidden_tag() }}
         
                     <h2>Inscrivez vous...</h2>
                     <div class="inputBox">
-                        {{ form2.nom(placeholder="Nom") }}
+                        {{ form.nom(placeholder="Nom") }}
                     </div>
                     <div class="inputBox">
-                        {{ form2.prenom(placeholder="Prenom") }}
+                        {{ form.prenom(placeholder="Prenom") }}
                     </div>
                     <div class="inputBox">
-                        {{ form2.email(placeholder="Email") }}
+                        {{ form.email(placeholder="Email") }}
                     </div>
                     <div class="inputBox">
-                        {{ form2.password(placeholder="Mot de passe")}}
+                        {{ form.password(placeholder="Mot de passe")}}
                     </div>
                     <div class="inputBox">
-                        {{ form2.submit }}
+                        {{ form.submit }}
                     </div>
         
                 </form>

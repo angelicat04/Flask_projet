@@ -40,9 +40,11 @@ header{
     padding: 20px 10%;
 }
 
-header img{
-    max-width: 150px;
-    height: auto;
+header .logo{
+    display: flex;
+    width: 100px;
+    height: 60px;
+    align-items: center;
 }
 
 header.header{
@@ -191,6 +193,9 @@ header.header{
     top: 56px;
 }
 
+.left-bar h2{
+    color: var(--primary-color);
+}
 .left-bar::-webkit-scrollbar{
     width: .5em;
 }
@@ -235,9 +240,9 @@ header.header{
 }
 .univ-logo img{
     height: 50px;
-    width:  50px;
+    width:  60px;
     border-radius: 5px;
-    object-fit: cover;
+
 }
 .univ-name{
     line-height: 1;

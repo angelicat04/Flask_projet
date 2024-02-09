@@ -7,17 +7,17 @@
 	<div class="container">
 		<div class="form">
 			<form action="" method="post">
-				{{ form.hidden_tag() }}
+				{{login_form.hidden_tag()}}
 	
 				<h2>Connectez-vous...</h2>
 				<div class="inputBox">
-					{{ form.email(placeholder="Email") }}
+					{{ login_form.email(placeholder="Email") }}
 				</div>
 				<div class="inputBox">
-					{{ form.password(placeholder="Mot de passe")}}
+					{{ login_form.password(placeholder="Mot de passe")}}
 				</div>
 				<div class="inputBox">
-					{{ form.submit }}
+					{{ login_form.submit }}
 				</div>
 	
 				<br><br><br><br><br>

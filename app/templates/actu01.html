@@ -3,13 +3,16 @@
 {% block main %}
 
 	<main class="main">
+
+
 	<article>
-		<img src="../static/Images/img1.jpeg" alt="Article Image"><br><br>
+		<h1>Actualités</h1>
+		<img src="../static/Images/actu-cover1.jpg" alt="Article Image"><br><br>
 		<h2>{{ actu01.titre }}</h2>
 		<p>{{ actu01.details }}</p>
 		<p> {{ actu01.date_publication }}</p><br><br>
 		<input type="text" placeholder="Laissez un commentaire">
-		<button type="submit">Envoyer</button>
+		<button type="submit">Envoyer </button>
 	</article>
 
 	<section class="similar-actus">
@@ -24,10 +27,10 @@
 		const carousel = document.getElementById('carousel');
 	  
 		const similarActus = [
-		  { title: 'Actualité 1', image: '../static/Images/img.jpeg' },
-		  { title: 'Actualité 2', image: '../static/Images/img.jpeg' },
-		  { title: 'Actualité 3', image: '../static/Images/img.jpeg' },
-		  { title: 'Actualité 4', image: '../static/Images/img.jpeg' },
+		  { title: 'Actualité 1', image: '../static/Images/actu-cover1.jpg' },
+		  { title: 'Actualité 2', image: '../static/Images/actu-cover2.jpg' },
+		  { title: 'Actualité 3', image: '../static/Images/actu-cover3.jpg' },
+		  { title: 'Actualité 4', image: '../static/Images/actu-cover4.jpg' },
 		];
 	  
 		similarActus.forEach(article => {
