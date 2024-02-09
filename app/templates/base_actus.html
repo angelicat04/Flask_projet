@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualités</title>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+
+	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+	<script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='Styles/actus_style.css')}}">
+</head>
+<body>
+	<header class="header">
+		<a href="#" class="logo"><img src="static/Images/logo2_sf.png"></a>
+
+		<ul class="navmenu">
+
+			<li><a href="accueil">Accueil</a></li>
+			<div class="dropdown-container">
+				<li><a href="#" id="domaine-link">Domaines</a></li>
+				<div class="dropdown-content" id="domaine-dropdown">
+					<ul>
+						<li><a href="#" class="domaine-item">Informatique</a>
+							<ul class="sub-list">
+								<li><a href="">IAI</a></li>
+								<li><a href="">Collège de Paris Supérieur</a></li>
+								<li><a href="">EPL</a></li>
+							</ul>
+
+						</li>
+						<li><a href="#" class="domaine-item">Marketing</a>
+							<ul class="sub-list">
+								<li><a href="">Collège de Paris Supérieur</a></li>
+								<li><a href="">FASEG (UL)</a></li>
+								<li><a href="">Lome Business School</a></li>
+							</ul>
+						</li>
+
+						<li><a href="#" class="domaine-item">Droit</a>
+							<ul class="sub-list">
+								<li><a href="">FDD (UL)</a></li>
+								<li><a href="">ISDI</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<li><a href="actualités">Actualités</a></li>
+			<li><a href="">Contacts</a></li>
+		</ul>
+		<div class="nav-icon">
+			<a href="login"><i class='bx bx-user'></i></a>
+			<a href="" ><i class='bx bx-menu' ></i></a>
+
+		</div>
+	</header>
+
+    {% block main %}
+    <main class="main">
+        <article class="details_actu">
+        </article>
+
+        <section class="similar-actus">
+        </section>
+    </main>
+    {% endblock %}
+
+
+    <footer class="site-footer">
+        <section class="contact">
+            <div class="contact-info">
+
+                <div class="first-info">
+                    <img src="static/Images/logo-2.png" alt=""> 
+                    <h2>Togo Campus Infos</h2>
+                    <h3>Suivez nous sur les réseaux sociaux</h3>
+
+                    <div class="social-icon">
+                        <a href="#"><i class='bx bxl-facebook' style='color:#ffffff'  ></i></a>
+                        <a href="#"><i class='bx bxl-twitter' style='color:#ffffff'></i></a>
+                        <a href="#"><i class='bx bxl-instagram' style='color:#ffffff'></i></a>
+                        <a href="#"><i class='bx bxl-linkedin' style='color:#ffffff'></i></a>
+                    </div>
+                    <p>0022891601237</p>
+                    <p>campusinfos@gmail.com</p>
+
+                </div>
+
+                <div class="second-info">
+                    <h4>Support</h4>
+                    <p>Nous Contacter</p>
+                    <p>A propos</p>
+                    <p>Guide</p>
+                    <p>Avis</p>
+                    <p>Politique de confidentialité</p>
+                </div>
+
+                <div class="third-info">
+                    <h4>Company</h4>
+                    <p>A propos</p>
+                    <p>Blog</p>
+                    <p>Affiliation</p>
+                    <p>Connexion</p>
+                </div>
+
+                <div class="fourth-info">
+                    <h4>Subscribe</h4>
+                    <p>Receive Updates, Hot Deals, Discounts Sent Straight In Your Inbox Daily</p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis non molestias modi, eaque ad dolores expedita est odio laboriosam, voluptates fuga culpa.
+                        Ex in ipsam rerum doloremque vel nostrum iure.</p>
+                    <p>Receive Updates, Hot Deals, Discounts Sent Straight In Your Inbox Daily</p>
+                </div>
+
+            </div>
+
+            <div class="end-text">
+                <p>Copyright © @2023. All Rights Reserved. Designed By Campus Infos.</p>
+            </div>
+        </section>
+    </footer>
+
+</body>
+</html>

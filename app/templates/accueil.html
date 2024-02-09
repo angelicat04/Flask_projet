@@ -1,24 +1,84 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>
-		Campus Infos
-	</title>
-	<!--<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='Style/style.css')}}">-->
-</head>
-<body>
-	<header class="header">
-		<nav class="nav">
-			<a class="active" href="">Accueil</a>
-			<a href="">Domaines</a>
-			<a href="">Actualités</a>
-			<a href="">Contacts</a>
-			<a href="">S'abonner</a>
-            <a href="">Menu</a>
-		</nav>
+{% extends 'base.html' %}
 
-	</header>
-</body>
-</html>
+{% block main %}
+
+<main class="main">
+
+    <section class="main-home">
+		<div class="main-text">
+			<h5>Bienvenue sur</h5>
+			<h1>Campus Infos</h1>
+			<p>Le site qui vous trouve l'univesité qu'il vous faut!</p>
+
+			<a href="#" class="main-btn">Actus Campus<i class='bx bx-right-arrow-alt' ></i></a>
+		</div>
+
+		<div class="down-arrow">
+			<a href="#" class="down"><i class='bx bxs-down-arrow-alt' ></i></a>
+		</div>
+	</section>
+
+    <div class="actus">
+        <div class="row">
+            <h3>Actualités</h3>
+    
+            <div class="content">
+                
+                <button class="arrow-left" id="arrowLeft"><i class='bx bx-chevron-left'></i></button>
+                {% for actu in actus %}   
+                <div class="card">  
+                    <img src="{{actu.image}}">
+                    <h3>{{actu.title}}</h3>
+                    <p>{{actu.description}}</p>
+                    <h4>{{actu.date}}</h4>
+                    <a href="actu01/1"><button class="read-more">Voir plus...</button></a>
+                </div> 
+                {% endfor %}
+                <button class="arrow-right" id="arrowRight"><i class='bx bx-chevron-right' ></i></button>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+   
+    <div class="reviews">
+        <h3>Avis Utilisateurs</h3>
+
+        <div class="user-reviews">
+    
+            <div class="container_left">
+                <h1>Read what our customers love about us</h1>
+                <p>
+                    Over 200 companies frim diverse sectors consult us to enhance the
+                    user experience of their products and services.
+                </p>
+                <p>
+                    We have helped companies increase their customer base and generate
+                    multifold revenue with our service.
+                </p>
+                <button>Read our success stories</button>
+            </div>
+    
+            <div class="container_right">
+    
+                {% for avis in avis %}
+                <div class="card">
+                    <img src="{{avis.profil}}" class="avis-profil">
+                    <div class="card_content">
+                        <span><i class="ri-double-quotes-l"></i></span>
+                        <div class="card_details">
+                            <p>{{avis.comment}}</p>
+                            <h4>{{avis.username}}</h4>
+                        </div>
+                    </div>  
+                </div>
+                {% endfor %}
+    
+            </div>
+    </div>
+    
+
+    </div>
+
+{% endblock %}

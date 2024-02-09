@@ -1,0 +1,33 @@
+{% extends 'base_login.html' %}
+
+{% block main %}
+
+    <main class="main">
+        <div class="container">
+            <div class="form">
+                <form action="" method="post">
+                    {{ form2.hidden_tag() }}
+        
+                    <h2>Inscrivez vous...</h2>
+                    <div class="inputBox">
+                        {{ form2.nom(placeholder="Nom") }}
+                    </div>
+                    <div class="inputBox">
+                        {{ form2.prenom(placeholder="Prenom") }}
+                    </div>
+                    <div class="inputBox">
+                        {{ form2.email(placeholder="Email") }}
+                    </div>
+                    <div class="inputBox">
+                        {{ form2.password(placeholder="Mot de passe")}}
+                    </div>
+                    <div class="inputBox">
+                        {{ form2.submit }}
+                    </div>
+        
+                </form>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

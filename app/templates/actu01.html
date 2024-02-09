@@ -1,0 +1,63 @@
+{% extends 'base_actus.html' %}
+ 
+{% block main %}
+
+	<main class="main">
+	<article>
+		<img src="../static/Images/img1.jpeg" alt="Article Image"><br><br>
+		<h2>{{ actu01.titre }}</h2>
+		<p>{{ actu01.details }}</p>
+		<p> {{ actu01.date_publication }}</p><br><br>
+		<input type="text" placeholder="Laissez un commentaire">
+		<button type="submit">Envoyer</button>
+	</article>
+
+	<section class="similar-actus">
+		<h1>Articles similaires</h1>
+		<div id="carousel" class="carousel">
+
+		</div>
+	</section>
+	</main> 
+
+	<script>
+		const carousel = document.getElementById('carousel');
+	  
+		const similarActus = [
+		  { title: 'Actualité 1', image: '../static/Images/img.jpeg' },
+		  { title: 'Actualité 2', image: '../static/Images/img.jpeg' },
+		  { title: 'Actualité 3', image: '../static/Images/img.jpeg' },
+		  { title: 'Actualité 4', image: '../static/Images/img.jpeg' },
+		];
+	  
+		similarActus.forEach(article => {
+		  const actuElement = document.createElement('article');
+		  actuElement.innerHTML = `<img src="${article.image}" alt="${article.title}"><h4>${article.title}</h4>`;
+		  carousel.appendChild(actuElement);
+		});
+
+		function envoyerCommentaire() {
+        const commentaireInput = document.getElementById('commentaireInput');
+        const commentaire = commentaireInput.value;
+
+        // Envoi du commentaire au serveur à l'aide de la bibliothèque Fetch
+        fetch('/enregistrer_commentaire', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'commentaire': commentaire,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);  // Vous pouvez gérer la réponse du serveur ici
+        })
+        .catch(error => {
+            console.error('Erreur lors de l\'enregistrement du commentaire :', error);
+        });
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Se connecter</title>
+</head>
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+:root {
+    --primary-color: #072D44;
+    --primary-color-dark: #064469;
+    --text-color-dark: #5790AB;
+    --text-light: #9CCDDB;
+    --text-hover: #D0D7E1 ;
+    --text-dark: #2c2c2c;
+    --color-text: #FF6F61;
+    --white: #ffffff;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #24232a;
+}
+.container{
+    position: relative;
+    width: 380px;
+    height: 560px;
+    background: #1c1c1c;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.container::before{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 560px;
+    background: linear-gradient(0deg,transparent,
+     #5790AB, #5790AB);
+     transform-origin: bottom right;
+     animation: animate 7s linear infinite;
+}
+.container::after{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 560px;
+    background: linear-gradient(0deg,transparent,
+     #FF6F61, #FF6F61);
+     transform-origin: bottom right;
+     animation: animate 7s linear infinite;
+     animation-delay: 3s;
+}
+@keyframes animate{
+    100%{
+        transform: rotate(360deg);
+    }
+}
+form{
+    position: absolute;
+    inset: 3px;
+    border-radius: 8px;
+    background: #24232a;
+    z-index: 10;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+}
+form h2{
+    text-align: center;
+    letter-spacing: 0.1em;
+    color: var(--white);
+}
+
+.inputBox{
+    position: relative;
+    width: 300px;
+    margin-top: 35px;
+}
+.inputBox input{
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    border-color:var(--text-color-dark);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-size: 1.1em;
+    outline: none;
+    color: var(--text-hover);
+}
+input[type="submit"] {
+    border: 1px solid var(--white);
+    background: var(--text-color-dark);
+    color: var(--white);
+    cursor: pointer;
+    margin-top: 20px;
+}
+.inscription-text p{
+	color: var(--white);
+	text-align: center;
+	font-size: 1.1rem;
+}
+.inscription-text a{
+	color: var(--text-light);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.1rem;
+	font-weight: 50px;
+}
+
+.inscription-text a:hover{
+	color: var(--color-text);
+}
+
+</style>
+
+
+<body>
+    {% block main %}
+        <div class="container">
+
+        </div>
+	{% endblock %}
+</body>
+</html>
